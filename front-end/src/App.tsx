@@ -2,8 +2,6 @@ import {Home, TranscribeChoice, LiveTranscribe, FileTranscribe} from './pages';
 import {Routes, Route, useLocation} from 'react-router-dom';
 import {AnimatePresence} from 'framer-motion'
 import {
-  useQuery,
-  useMutation,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'

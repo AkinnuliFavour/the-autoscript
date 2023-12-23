@@ -29,4 +29,8 @@ app.use('/transcribe', upload.single('foo'), require('./routes/localFileTranscri
 //     }
 // )
 
+app.get('/', (req, res) => {
+    res.send('Hey this is my API running 🥳')
+  })
+
 app.listen(PORT, () => console.log(`Server started at port ${PORT}`))

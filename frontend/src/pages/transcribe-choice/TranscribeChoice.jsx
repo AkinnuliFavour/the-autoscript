@@ -7,13 +7,13 @@ const TranscribeChoice = () => {
         <nav 
             className='bg-[#62649d] text-gray-300 h-48 flex flex-col items-center text-center justify-center px-12 uppercase'
         >
-            <motion>
+            <p>
                 <span className='text-[#9D9B62]'>The AutoScript </span>
                 Speech to text Converter
-            </motion>
-            <motion>
+            </p>
+            <p>
                 TRANSCRIBE ALL YOUR AUDIO FILES QUICKLY OR CREATE A LIVE TRANSCRIBED TEXT
-            </motion>
+            </p>
         </nav>
         <main className='bg-gray-100 text-gray-300 flex flex-col items-center justify-center text-center'>
             <section className='mt-12 grid gap-8 lg:flex lg:justify-between w-full'>

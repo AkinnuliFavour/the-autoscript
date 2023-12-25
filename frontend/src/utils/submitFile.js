@@ -18,7 +18,7 @@ export const submitFile = async(path) => {
   const transcriptId = response.data.id
   const pollingEndpoint = `https://api.assemblyai.com/v2/transcript/${transcriptId}`
 
-  while (true) {
+  while (headers) {
     const pollingResponse = await axios.get(pollingEndpoint, {
       headers: headers
     })
@@ -27,7 +27,6 @@ export const submitFile = async(path) => {
     if (transcriptionResult.status === 'completed') {
       // console.log(transcriptionResult)
       return transcriptionResult.text
-      break
     } else if (transcriptionResult.status === 'error') {
       throw new Error(`Transcription failed: ${transcriptionResult.error}`)
     } else {

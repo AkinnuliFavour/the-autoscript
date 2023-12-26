@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 import { Link } from 'react-router-dom';
 
 const Header = (transcript) => {
-  console.log(transcript)
   const handleDownload = () => {
     if(typeof transcript === 'object') {
       const blob = new Blob([`${transcript.transcript}`], {type: "text/plain;charset=utf-8"});

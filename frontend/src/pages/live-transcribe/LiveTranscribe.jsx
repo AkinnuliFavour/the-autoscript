@@ -5,8 +5,10 @@ import { useState } from 'react'
 const LiveTranscribe = () => {
   const [transcript, setTranscript] =useState("")
 
+  let disabled;
+
   const stream = (e) => {
-    console.log('streaming')
+    console.log(e.target)
     if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
       console.log('Speech recognition supported.');
       const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -20,7 +22,7 @@ const LiveTranscribe = () => {
       recognition.onresult = (event) => {
           const result = event.results[event.results.length - 1];
           const liveTranscript = result[0].transcript;
-          setTranscript((prev) => prev + liveTranscript);
+          setTranscript(liveTranscript);
       };
   
       // Handle recognition errors
@@ -30,11 +32,11 @@ const LiveTranscribe = () => {
   
       // Start recognition when the button is clicked
           recognition.start();
-          e.target.disabled = true;
+          disabled = true;
   
       // Re-enable the button when recognition ends
       recognition.onend = () => {
-          e.target.disabled = false;
+          disabled = false;
       };
   } else {
       setTranscript("Speech recognition not supported in this browser.");
@@ -64,7 +66,7 @@ const LiveTranscribe = () => {
       <section
         className='p-4 mb-4 bg-[#9D9B62] text-[#62649d] rounded-full shadow-circle'
       >
-          <FaMicrophone onClick={(e) => stream(e)} />
+          <FaMicrophone onClick={(e) => stream(e)}/>
       </section>
     </main>
   )

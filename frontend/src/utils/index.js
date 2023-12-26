@@ -1,4 +1,4 @@
-import { fetchTranscript } from "./liveTranscribe";
+// import { fetchTranscript } from "./liveTranscribe";
 import { submitFile } from "./submitFile";
 
-export {fetchTranscript, submitFile}
+export {submitFile}

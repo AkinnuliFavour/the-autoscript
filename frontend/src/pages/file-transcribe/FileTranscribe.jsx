@@ -54,7 +54,7 @@ const FileTranscribe = () => {
       <Header transcript={transcript}/>
       <form encType='multipart/form-data' className='w-full flex flex-col gap-8 px-8'>
         <textarea
-          className='p-4 w-full h-72 bg-[#8183B1] text-gray-300 outline-none rounded-md shadow-box'
+          className='p-4 w-full h-72 bg-[#8183B1] text-gray-300 outline-none rounded-md shadow-box resize-none'
           value={transcript}
           onChange={(e) => handleChange(e)}
         />

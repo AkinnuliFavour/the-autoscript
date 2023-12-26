@@ -1,8 +1,18 @@
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import {TranscribeChoice, LiveTranscribe, FileTranscribe} from './pages';
 import {Routes, Route} from 'react-router-dom';
+// import { use } from 'bcrypt/promises';
 
 function App() {
   // const location = useLocation();
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  });
   return (
         <Routes>
             {/* <Route path='/' element={<Home />}/> */}

@@ -20,7 +20,7 @@ const LiveTranscribe = () => {
       recognition.onresult = (event) => {
           const result = event.results[event.results.length - 1];
           const liveTranscript = result[0].transcript;
-          setTranscript(liveTranscript);
+          setTranscript((prev) => prev + liveTranscript);
       };
   
       // Handle recognition errors

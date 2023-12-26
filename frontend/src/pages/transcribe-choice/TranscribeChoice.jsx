@@ -5,7 +5,8 @@ const TranscribeChoice = () => {
   return (
     <main>
         <nav 
-            className='bg-[#62649d] text-gray-300 h-48 flex flex-col items-center text-center justify-center px-12 uppercase'
+            className='bg-[#62649d] text-gray-300 font-bold h-48 flex flex-col items-center text-center justify-center px-12 uppercase'
+            data-aos="fade-up"
         >
             <p>
                 <span className='text-[#9D9B62]'>The AutoScript </span>
@@ -19,7 +20,7 @@ const TranscribeChoice = () => {
             <section className='mt-12 grid gap-8 lg:flex lg:justify-between w-full'>
                 {
                     transcribeChoiceImages.map(image => (
-                        <section className='w-full p-4 flex flex-col items-center lg:w-1/2' key={image.id}>
+                        <section className='w-full p-4 flex flex-col items-center lg:w-1/2' key={image.id} data-aos={image.animation}>
                             <h3 className='mb-4 text-lg font-extrabold uppercase text-[#9D9B62]'>{image.text} <span className='text-[#62649d]'>Transcribe</span></h3>
                             <div
                                 className={`w-full flex justify-center items-center h-72 md:h-96 bg-center`}
@@ -46,6 +47,7 @@ const TranscribeChoice = () => {
                         <div
                             key={feature.id} 
                             className='mt-8 bg-[#8183B1] p-4 text-center text-[#B1AF81] font-semibold rounded-md'
+                            data-aos="fade-up"
                         >
                             <p className=''>
                                 {feature.content1}

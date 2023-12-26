@@ -52,11 +52,13 @@ export const transcribeChoiceImages = [
         text: 'Live',
         backgroundImage: '/live.jpg',
         link: '/live-transcribe',
+        animation: 'fade-right'
     },
     {
         id: 2,
         text: 'File',
         backgroundImage: '/file.jpg',
         link: '/file-transcribe',
+        animation: 'fade-left'
     },
 ]

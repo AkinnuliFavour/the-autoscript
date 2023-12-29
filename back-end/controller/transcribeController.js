@@ -15,7 +15,7 @@ const sendFile = async (req, res) => {
     // console.log(req.file)
     const file = req.file
     if(file){
-      const data = await fs.readFile(path.join(__dirname, '../..', 'uploads', file.filename))
+      const data = await fs.readFile(path.join(__dirname, '..', 'uploads', file.filename))
       const response = await axios.post(`${base_url}/upload`, data, { headers })
       const upload_url = response.data.upload_url
       const uploadData = {
@@ -32,7 +32,7 @@ const sendFile = async (req, res) => {
             })
             transcriptionResult = pollingResponse.data
             if (transcriptionResult.status === 'completed') {
-              fs.removeSync(path.join(__dirname, '../..', 'uploads', file.filename))
+              fs.removeSync(path.join(__dirname, '..', 'uploads', file.filename))
               break
             } else if (transcriptionResult.status === 'error') {
               throw new Error(`Transcription failed: ${transcriptionResult.error}`)

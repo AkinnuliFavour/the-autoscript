@@ -17,7 +17,7 @@ const FileTranscribe = () => {
     setLoading(true)
     const formData = new FormData()
     formData.append('foo', selectedFile)
-    const data = await axios.post('https://the-autoscript.vercel.app', formData)
+    const data = await axios.post('http://localhost:3500/transcribe', formData)
     console.log(selectedFile)
     console.log(formData)
     console.log(data.data)

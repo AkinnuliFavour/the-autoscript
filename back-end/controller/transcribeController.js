@@ -32,6 +32,7 @@ const sendFile = async (req, res) => {
             })
             transcriptionResult = pollingResponse.data
             if (transcriptionResult.status === 'completed') {
+              fs.removeSync(path.join(__dirname, '..', 'uploads', file.filename))
               break
             } else if (transcriptionResult.status === 'error') {
               throw new Error(`Transcription failed: ${transcriptionResult.error}`)

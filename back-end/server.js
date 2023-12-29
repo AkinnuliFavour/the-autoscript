@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-// const corsOptions = require('./config/corsOptions')
+const corsOptions = require('./config/corsOptions')
 const PORT = process.env.DB_URI || 3500
 const multer = require('multer')
 

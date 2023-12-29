@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 // import axios from 'axios';
 import { Header } from '../components';
 import { submitFile } from '../../utils';
 
 const FileTranscribe = () => {
+
+  const inputRef = useRef(null);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [urlpath, setUrlpath] = useState("");
@@ -16,7 +18,8 @@ const FileTranscribe = () => {
     console.log()
     setLoading(true)
     const formData = new FormData()
-    formData.append('foo', selectedFile)
+    const file = inputRef.current.files[0]
+    formData.append('foo', file)
     // const data = await axios.post('https://the-autoscript.vercel.app', formData)
     // const formData = new FormData();  // Assuming you have some data to send in the formData
 
@@ -121,6 +124,7 @@ const FileTranscribe = () => {
             placeholder = 'URL of audio file' 
             onChange={(e) => handleFileChange(e)}
             name='foo'
+            ref={inputRef}
           />
         }
       </form>

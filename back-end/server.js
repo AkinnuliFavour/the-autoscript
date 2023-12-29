@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const corsOptions = require('./config/corsOptions')
+// const corsOptions = require('./config/corsOptions')
 const PORT = process.env.DB_URI || 3500
 const multer = require('multer')
 
@@ -30,7 +30,7 @@ const upload = multer({ storage: storage })
 //   }
 // })
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://the-autoscript-frontend.vercel.app"); // update to match the domain you will make the request from

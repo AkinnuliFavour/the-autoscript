@@ -30,7 +30,7 @@ const upload = multer({ storage: storage })
 //   }
 // })
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
 app.use(express.json())
 

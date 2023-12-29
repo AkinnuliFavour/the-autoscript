@@ -11,11 +11,11 @@ const headers = {
 
 const sendFile = async (req, res) => {
     let transcriptionResult;
-    console.log(req.body)
-    console.log(req.file)
+    // console.log(req.body)
+    // console.log(req.file)
     const file = req.file
     if(file){
-      const data = await fs.readFile(path.join(__dirname, '..', 'uploads', file.filename))
+      const data = await fs.readFile(path.join(__dirname, '../..', 'uploads', file.filename))
       const response = await axios.post(`${base_url}/upload`, data, { headers })
       const upload_url = response.data.upload_url
       const uploadData = {
@@ -24,7 +24,7 @@ const sendFile = async (req, res) => {
       const url = base_url + '/transcript'
       const uploadResponse = await axios.post(url, uploadData, { headers: headers })
       const transcriptId = uploadResponse.data.id
-      console.log(transcriptId)
+      // console.log(transcriptId)
       const pollingEndpoint = `https://api.assemblyai.com/v2/transcript/${transcriptId}`
         while (true) {
             const pollingResponse = await axios.get(pollingEndpoint, {
@@ -32,7 +32,7 @@ const sendFile = async (req, res) => {
             })
             transcriptionResult = pollingResponse.data
             if (transcriptionResult.status === 'completed') {
-              fs.removeSync(path.join(__dirname, '..', 'uploads', file.filename))
+              fs.removeSync(path.join(__dirname, '../..', 'uploads', file.filename))
               break
             } else if (transcriptionResult.status === 'error') {
               throw new Error(`Transcription failed: ${transcriptionResult.error}`)
@@ -50,8 +50,4 @@ const sendFile = async (req, res) => {
     }
 }
 
-const recieveTranscript = async (req, res) => {
- 
-}
-
-module.exports = { sendFile, recieveTranscript }
+module.exports = { sendFile }

@@ -30,7 +30,7 @@ const upload = multer({ storage: storage })
 //   }
 // })
 
-// app.use(cors(corsOptions))
+app.use(cors(corsOptions))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "https://the-autoscript-frontend.vercel.app"); // update to match the domain you will make the request from

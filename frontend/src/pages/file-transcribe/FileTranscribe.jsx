@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Header } from '../components';
 import { submitFile } from '../../utils';
 
@@ -17,13 +17,30 @@ const FileTranscribe = () => {
     setLoading(true)
     const formData = new FormData()
     formData.append('foo', selectedFile)
-    const data = await axios.post('https://the-autoscript.vercel.app', formData)
-    console.log(selectedFile)
-    console.log(formData)
-    console.log(data.data)
-    const transcriptionResult = data.data
-    setTranscript(transcriptionResult);
-    setLoading(false)
+    // const data = await axios.post('https://the-autoscript.vercel.app', formData)
+    // const formData = new FormData();  // Assuming you have some data to send in the formData
+
+    try {
+      const response = await fetch('https://the-autoscript.vercel.app', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();  // Assuming the response is JSON; adjust accordingly
+      console.log(data);
+      console.log(selectedFile)
+      console.log(formData)
+      console.log(data.data)
+      const transcriptionResult = data.data
+      setTranscript(transcriptionResult);
+      setLoading(false)
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
   }
 
   const handleUpload = async() => {

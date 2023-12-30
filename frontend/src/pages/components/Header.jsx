@@ -15,7 +15,7 @@ const Header = (transcript) => {
   return (
     <header className='w-full'>
         <nav className='w-full py-4 px-8 flex justify-between text-[#9D9B62]'>
-          <Link to='/transcribe-choice' className='text-left text-xl font-bold brand-name-shadow'>The AutoScript</Link>
+          <Link to='/' className='text-left text-xl font-bold brand-name-shadow'>The AutoScript</Link>
           <section className='p-4 mb-4 bg-[#9D9B62] text-[#62649d] rounded-full shadow-circle' onClick={() => handleDownload()}>
             <FaDownload />
           </section>

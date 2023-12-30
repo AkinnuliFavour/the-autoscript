@@ -133,7 +133,7 @@ const FileTranscribe = () => {
       <button
         className='px-6 py-2 mb-4 mt-4 bg-[#9D9B62] text-[#62649d] text-md font-semibold rounded-lg shadow-circle'
         onClick={() => handleUpload()}
-        disabled = {!urlpath && !selectedFile ? false : true}
+        disabled = {!urlpath && !selectedFile ? true : false}
       >
         {loading ? 'Transcribing...' : 'UPLOAD'}
       </button>

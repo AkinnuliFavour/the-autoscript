@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
 // import axios from 'axios';
 import { Header } from '../components';
-import { submitFile } from '../../utils';
+import { createClient } from "@supabase/supabase-js";
+import { AssemblyAI } from 'assemblyai'
 
 const FileTranscribe = () => {
 
@@ -14,60 +15,75 @@ const FileTranscribe = () => {
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [showFileInput, setShowFileInput] = useState(false);
 
-  const fetchTranscript = async() => {
-    console.log()
-    setLoading(true)
-    const formData = new FormData()
-    const file = inputRef.current.files[0]
-    formData.append('foo', file)
-    // const data = await axios.post('https://the-autoscript.vercel.app', formData)
-    // const formData = new FormData();  // Assuming you have some data to send in the formData
+  // Initialize Supabase client
+  const supabase = createClient('https://rljogdxufpvitwwctbta.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsam9nZHh1ZnB2aXR3d2N0YnRhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNjcyODE3NCwiZXhwIjoyMDIyMzA0MTc0fQ.tG3mJEIFZ4T5R6AYhof7VqCt-KDWi2SjkBnr0FLsjZo');
 
-    try {
-      const response = await fetch('https://the-autoscript.vercel.app', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();  // Assuming the response is JSON; adjust accordingly
-      console.log(data);
-      console.log(selectedFile)
-      console.log(formData)
-      console.log(data.data)
-      const transcriptionResult = data.data
-      setTranscript(transcriptionResult);
-      setLoading(false)
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  }
+  const client = new AssemblyAI({
+    apiKey: 'e27b00f7037b43e8beabf91e43796609' 
+  })
 
   const handleUpload = async() => {
-    if(urlpath){
-      setLoading(true);
-      const transcriptionResult = await submitFile(urlpath);
-      setLoading(false);
-      setTranscript(transcriptionResult);
-    }
-    if(selectedFile){
-      fetchTranscript()
-    }
-  }
+    setLoading(true)
+    const { data, error } = await supabase
+      .storage
+      .from('the-autoscript')
+      .upload(`public/${selectedFile.name}`, selectedFile, {
+        cacheControl: '3600',
+        upsert: false
+      })
+      console.log(selectedFile)
+      console.log(data)
+      // setUploadData(data)
+      console.log(error)
 
-  const handleFileChange = (e) => {
-    if (e.target.files) {
-      console.log(typeof(e.target.files[0]))
+      console.log(data.id)
+
+      generateDownloadUrl(data.path).then(signedUrl => {
+        console.log('Download URL:', signedUrl);
+        // Now you can provide this URL to your users
+      });
+    }
+
+    // Function to generate a signed URL for a file
+    async function generateDownloadUrl(fileId) {
+      // Generate a signed URL with a 1-hour expiry
+      const { data, error } = await supabase.storage
+        .from('the-autoscript')
+        .createSignedUrl(`${fileId}`, 60 * 60); // Replace 'files' with your folder path
+      
+      if (error) {
+        console.error('Error generating download URL:', error.message);
+        return null;
+      }
+      
+      console.log(data.signedUrl)
+      transcribe(data.signedUrl)
+    }
+
+    const transcribe = async(audioUrl) => {
+      const transcript = await client.transcripts.transcribe({ audio: audioUrl })
+
+      if (transcript.status === 'error') {
+        console.log(transcript.error)
+      }
+
+      console.log(transcript.text)
+      setTranscript(transcript.text)
+      setLoading(false)
+    }
+
+    // generateDownloadUrl(uploadData.id).then(downloadUrl => {
+    //   console.log('Download URL:', downloadUrl);
+    //   // Now you can provide this URL to your users
+    // });
+
+    const handleFileChange = (e) => {
       setSelectedFile(e.target.files[0])
-    }
-  }
+    }    
 
-  const handleChange = (e) => {
-    setTranscript(e.target.value)
-  }
+    const handleChange = (e) => {
+      setTranscript(e.target.value)
+    }
 
   return (
     <main 

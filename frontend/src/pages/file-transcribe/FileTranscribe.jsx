@@ -9,11 +9,8 @@ const FileTranscribe = () => {
   const inputRef = useRef(null);
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [urlpath, setUrlpath] = useState("");
   const [transcript, setTranscript] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showUrlInput, setShowUrlInput] = useState(false);
-  const [showFileInput, setShowFileInput] = useState(false);
 
   // Initialize Supabase client
   const supabase = createClient('https://rljogdxufpvitwwctbta.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJsam9nZHh1ZnB2aXR3d2N0YnRhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcwNjcyODE3NCwiZXhwIjoyMDIyMzA0MTc0fQ.tG3mJEIFZ4T5R6AYhof7VqCt-KDWi2SjkBnr0FLsjZo');
@@ -96,60 +93,19 @@ const FileTranscribe = () => {
           value={transcript}
           onChange={(e) => handleChange(e)}
         />
-        <p className='text-md'>
-            upload a
-            <span
-              className='hover:cursor-pointer text-[#9D9B62] font-bold'
-              onClick={
-                () => {
-                  showUrlInput && setShowUrlInput(false)
-                  setShowFileInput(true)
-                }
-              }
-            >
-              {` local file `} 
-            </span>
-            or 
-           <span
-            className='hover:cursor-pointer text-[#9D9B62] font-bold'
-            onClick={
-              () => {
-                showFileInput && setShowFileInput(false)
-                setShowUrlInput(true)
-              }
-            }
-           > 
-            {` audio url `}
-           </span>
-        </p>
-        {
-          showUrlInput
-            &&
-          <input
-            type="text"
-            className='p-3 bg-[#8183B1] text-gray-300 outline-none rounded-md shadow-box'
-            placeholder = 'URL of audio file' 
-            value={urlpath}
-            onChange={(e) => setUrlpath(e.target.value)}
-          />
-        }
-        {
-          showFileInput
-            &&
-          <input
-            type="file"
-            className='p-3 bg-[#8183B1] text-gray-300 outline-none rounded-md shadow-box'
-            placeholder = 'URL of audio file' 
-            onChange={(e) => handleFileChange(e)}
-            name='foo'
-            ref={inputRef}
-          />
-        }
+        <input
+          type="file"
+          className='p-3 bg-[#8183B1] text-gray-300 outline-none rounded-md shadow-box'
+          placeholder = 'URL of audio file' 
+          onChange={(e) => handleFileChange(e)}
+          name='foo'
+          ref={inputRef}
+        />
       </form>
       <button
         className='px-6 py-2 mb-4 mt-4 bg-[#9D9B62] text-[#62649d] text-md font-semibold rounded-lg shadow-circle'
         onClick={() => handleUpload()}
-        disabled = {!urlpath && !selectedFile ? true : false}
+        disabled = {!selectedFile ? true : false}
       >
         {loading ? 'Transcribing...' : 'UPLOAD'}
       </button>

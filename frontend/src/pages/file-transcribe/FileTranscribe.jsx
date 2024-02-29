@@ -64,7 +64,18 @@ const FileTranscribe = () => {
         console.log(transcript.error)
       }
 
-      console.log(transcript.text)
+      const { error } = await supabase
+        .storage
+        .from('the-autoscript')
+        .remove([`public/${selectedFile.name}`])
+
+      if (error) {
+        console.error('Error deleting file: ', error)
+      } else {
+        console.log('File deleted successfully')
+      }
+
+      console.log(transcript)
       setTranscript(transcript.text)
       setLoading(false)
     }

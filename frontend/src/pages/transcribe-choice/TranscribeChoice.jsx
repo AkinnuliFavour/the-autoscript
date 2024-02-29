@@ -23,7 +23,7 @@ const TranscribeChoice = () => {
                         <section className='w-full p-4 flex flex-col items-center lg:w-1/2' key={image.id} data-aos={image.animation}>
                             <h3 className='mb-4 text-lg font-extrabold uppercase text-[#9D9B62]'>{image.text} <span className='text-[#62649d]'>Transcribe</span></h3>
                             <div
-                                className={`w-full flex justify-center items-center h-72 md:h-96 bg-center`}
+                                className={`w-full flex justify-center items-center h-72 md:h-96 bg-center bg-no-repeat`}
                                 style={{backgroundImage: `url(${image.backgroundImage})`}}
                                
                             >

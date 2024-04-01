@@ -15,7 +15,6 @@ function App() {
   });
   return (
         <Routes>
-            {/* <Route path='/' element={<Home />}/> */}
             <Route path='/' element={<TranscribeChoice />} />
             <Route path='/live-transcribe' element={<LiveTranscribe />} />
             <Route path='/file-transcribe' element={<FileTranscribe />} />
